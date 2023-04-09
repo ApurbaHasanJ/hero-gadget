@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import heroImg from '../assets/hero.jpg'
 
 const Home = () => {
+  
   return (
     <section>
       <div className='bg-gray-200'>
