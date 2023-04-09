@@ -9,13 +9,14 @@ import ErrorPage from "./components/ErrorPage";
 import Shop from "./components/Shop";
 import Cart from "./components/Cart";
 import { productsAndCartData } from "./loaders/getCartAndProductData";
-
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
+    loader: productsAndCartData,
     children: [
       {
         path: "/",
@@ -27,20 +28,19 @@ const router = createBrowserRouter([
         loader: () => fetch("products.json"),
       },
       {
-       path: 'cart',
-       element: <Cart></Cart>,
-       loader: productsAndCartData
+        path: "cart",
+        element: <Cart></Cart>,
       },
       {
         path: "/about",
         element: <About />,
       },
-      
     ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router}>
-  
-  </RouterProvider>
+  <>
+    <Toaster />
+    <RouterProvider router={router} />
+  </>
 );
