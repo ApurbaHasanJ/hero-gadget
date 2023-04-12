@@ -16,18 +16,28 @@ const Cart = () => {
     }
   }
 
-  // Delete Shopping Cart
-  const deleteCartHandler = () => {
-    if (cart.length > 0) {
-      setCart([])
-      return toast.success('All Items Removed! 👍');
-    }
-    deleteShoppingCart()
+ 
+  //   Remove Item From Shopping Cart
+  const handleRemoveItem = id => {
+    const remaining = cart.filter(product => product.id !== id)
+    setCart(remaining)
+    removeItemFromDb(id)
+    toast.error('Product Removed! 🔥')
   }
 
-  // Place Order
-  const  orderHandler = () => {
-    if(cart.length > 0) {
+  //   Delete Shopping Cart
+  const deleteCartHandler = () => {
+    if (cart.length) {
+      setCart([])
+      deleteShoppingCart()
+      return toast.error('All Items Removed! 🔥')
+    }
+    return toast.error('Cart is empty! 🔥')
+  }
+
+  //   Place Order
+  const orderHandler = () => {
+    if (cart.length) {
       setCart([])
       deleteShoppingCart()
       return toast.success('Order Placed! 👍')
@@ -35,14 +45,6 @@ const Cart = () => {
     return toast.error('Cart is empty! 🔥')
   }
 
-
-
-  // Remove item from shopping cart
-  const handleRemoveItem = (id) => {
-    const remaining = cart.filter(product => product.id !== id);
-    setCart(remaining)
-    removeItemFromDb(id)
-  }
   return (
     <div className=" flex min-h-screen items-start justify-center bg-gray-100 text-gray-900">
       <div className="mx-auto flex flex-col max-w-3xl p-6 space-y-4 sm:p-10">

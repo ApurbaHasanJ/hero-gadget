@@ -11,6 +11,7 @@ import Cart from "./components/Cart";
 import { productsAndCartData } from "./loaders/getCartAndProductData";
 import { Toaster } from "react-hot-toast";
 
+
 const router = createBrowserRouter([
   {
     path: "/",

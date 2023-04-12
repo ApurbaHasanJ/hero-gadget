@@ -3,12 +3,13 @@ import { useLoaderData } from 'react-router-dom';
 import ProductCard from './Cards/ProductCard';
 import { addToDb } from '../Utils/fakeDB';
 import { CartContext, ProductContext } from '../App';
+import { toast } from 'react-hot-toast';
 
 const Shop = () => {
     // const productData = useLoaderData()
 
     const products = useContext(ProductContext);
-    console.log(products);
+    // console.log(products);
     const [cart, setCart] = useContext(CartContext);
 
     // Cart btn handler
@@ -18,6 +19,7 @@ const Shop = () => {
         if(!exists){
             product.quantity = 1;
             newCart = [...cart, product]
+            
         }
         else{
             const rest = cart.filter(existingProduct => existingProduct.id !== product.id)
@@ -26,11 +28,13 @@ const Shop = () => {
         }
         setCart(newCart)
         addToDb(product.id)
+        toast.success('Product Added! 🛒')
+
     }
     
     // console.log(productData);
     return (
-        <div className='my-container product-container'>
+        <div className='my-container lg:py-16 product-container'>
             {
                 products.map(product => <ProductCard
                 key={product.id}
